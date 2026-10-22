@@ -1,0 +1,7 @@
+@php($isEditing = $exam->exists)
+<form method="POST" action="{{ $isEditing ? route('exams.update', $exam) : route('exams.store') }}" class="mt-6 space-y-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+    @csrf @if($isEditing) @method('PUT') @endif
+    <div><label for="subject" class="mb-1.5 block text-sm font-semibold text-slate-700">Subject</label><input id="subject" name="subject" maxlength="120" required value="{{ old('subject', $exam->subject) }}" placeholder="e.g. Mathematics" class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100"><x-field-error field="subject" /></div>
+    <div><label for="exam_date" class="mb-1.5 block text-sm font-semibold text-slate-700">Exam date and time</label><input id="exam_date" name="exam_date" type="datetime-local" required value="{{ old('exam_date', $exam->exam_date?->format('Y-m-d\TH:i')) }}" class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100"><x-field-error field="exam_date" /></div>
+    <div class="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end"><a href="{{ route('exams.index') }}" class="rounded-xl border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-600 hover:bg-slate-50">Cancel</a><button class="rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-700">{{ $isEditing ? 'Save changes' : 'Add exam' }}</button></div>
+</form>
